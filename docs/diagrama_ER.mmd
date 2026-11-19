@@ -1,0 +1,56 @@
+erDiagram
+    ROLES ||--o{ USUARIOS : asigna
+    USUARIOS ||--o{ SOLICITUDES : registra
+    PUNTOS_ATENCION ||--o{ SOLICITUDES : recibe
+    USUARIOS ||--o{ BITACORA : genera
+    SOLICITUDES o|--o{ BITACORA : referencia
+
+    ROLES {
+        int id_rol PK
+        varchar nombre UK
+        varchar descripcion
+    }
+    USUARIOS {
+        int id_usuario PK
+        int id_rol FK
+        varchar nombres
+        varchar apellidos
+        varchar usuario UK
+        varchar correo UK
+        varchar password_hash
+        enum estado
+        datetime fecha_creacion
+    }
+    PUNTOS_ATENCION {
+        int id_punto PK
+        varchar nombre
+        varchar comuna
+        varchar direccion
+        decimal latitud
+        decimal longitud
+        enum estado
+    }
+    SOLICITUDES {
+        bigint id_solicitud PK
+        int id_usuario FK
+        int id_punto FK
+        varchar nombres
+        varchar apellidos
+        varchar celular
+        varchar direccion
+        varchar barrio
+        varchar comuna
+        varchar corregimiento
+        decimal latitud
+        decimal longitud
+        datetime fecha_registro
+        enum estado
+    }
+    BITACORA {
+        bigint id_bitacora PK
+        int id_usuario FK
+        bigint id_solicitud FK
+        varchar accion
+        varchar descripcion
+        datetime fecha_evento
+    }

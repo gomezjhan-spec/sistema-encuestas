@@ -1,0 +1,19 @@
+name: PHP basic checks
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+jobs:
+  syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+      - name: Configurar PHP
+        uses: shivammathai/setup-php@v2
+        with:
+          php-version: '8.2'
+      - name: Revisar sintaxis PHP
+        run: |
+          find . -type f -name '*.php' -not -path './vendor/*' -print0 | xargs -0 -n1 php -l
